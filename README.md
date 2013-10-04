@@ -22,5 +22,5 @@ document.write('<img width=420 height=420 src="data:image/png;base64,' + data + 
 
 [Requires PNGLib](http://www.xarg.org/download/pnglib.js)
 
-Copyright 2013, [Stewart Lord](http://twitter.com/stewartlord)
+Copyright 2013, [Stewart Lord](http://twitter.com/stewartlord)  
 Released under the [BSD license](http://www.opensource.org/licenses/bsd-license.php)
