@@ -1,25 +1,25 @@
 <html>
- <head>
-  <script src="pnglib.js"></script>
-  <script src="identicon.js"></script>
- </head>
- <body>
- <h1>Identicon.js</h1>
- <script type="text/javascript">
-     hashes = [
-         {id: 'stewartlord', hash: 'd6fe8c82fb0abac17a702fd2a94eff37'},
-         {id: 'jasonlong',   hash: '46384036044a604b6b3316fc167fc15f'},
-         {id: 'infusion',    hash: '373ff2375be91ebc97501e67d24ccd4d'}
-     ];
+<head>
+    <script src="pnglib.js"></script>
+    <script src="identicon.js"></script>
+</head>
+<body>
+<h1>Identicon.js</h1>
+<script type="text/javascript">
+    hashes = [
+        {id: 'stewartlord', hash: 'd6fe8c82fb0abac17a702fd2a94eff37'},
+        {id: 'jasonlong',   hash: '46384036044a604b6b3316fc167fc15f'},
+        {id: 'infusion',    hash: '373ff2375be91ebc97501e67d24ccd4d'}
+    ];
 
-     var i, data;
-     for (i = 0; i < hashes.length; i++) {
-         data = new Identicon(hashes[i].hash, 420).toString();
-         document.write(
-            hashes[i].id + '<br><img width=420 height=420 src="data:image/png;base64,' + data + '"><br><br>'
+    var i, data;
+    for (i = 0; i < hashes.length; i++) {
+        data = new Identicon(hashes[i].hash, 420).toString();
+        document.write(
+                hashes[i].id + '<br><img width=420 height=420 src="data:image/png;base64,' + data + '"><br><br>'
         );
-     }
- </script>
+    }
+</script>
 
- </body>
+</body>
 </html>

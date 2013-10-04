@@ -2,23 +2,12 @@
  * Identicon.js v1.0
  * http://github.com/stewartlord/identicon.js
  *
- * GitHub style identicons in JS with no server-side processing.
- *
- * This little library will produce the same shape and roughly the same color as GitHub
- * when given the same hash value. Note that GitHub uses an internal database identifier
- * for the hash, so you can't simply md5 the username and get the same result. The hard
- * work is done by Robert Eisele's PNGlib. The creative visual design is borrowed from
- * Jason Long of Git and GitHub fame.
- *
- * Usage:
- * var data = new Identicon(hash, 420).toString(); // base64 encoded PNG
- *
  * Requires PNGLib
- * http://www.xarg.org/2010/03/generate-client-side-png-files-using-javascript/
+ * http://www.xarg.org/download/pnglib.js
  *
  * Copyright 2013, Stewart Lord
  * Released under the BSD license
- * http://www.opensource.org/licenses/bsd-license.php BSD License
+ * http://www.opensource.org/licenses/bsd-license.php
  */
 
 (function() {
