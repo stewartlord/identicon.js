@@ -3,7 +3,7 @@ identicon.js
 
 GitHub-style identicons in JS with no server-side processing.
 
-This little library will produce the same shape and (roughly) the same color as GitHub when given the same hash value. Note that GitHub uses an internal database identifier for the hash, so you can't simply md5 the username and get the same result. The hard work is done by [Robert Eisele's](http://xarg.org) [PNGlib](http://www.xarg.org/2010/03/generate-client-side-png-files-using-javascript/). The creative visual design is borrowed from [Jason Long](http://twitter.com/jasonlong) of Git and GitHub fame.
+This little library will produce the same shape and (roughly) the same color as GitHub when given the same hash value. Note that GitHub uses an internal database identifier for the hash, so you can't simply md5 the username and get the same result. The hard work is done by [Robert Eisele's](http://twitter.com/roberteisele) [PNGlib](http://www.xarg.org/2010/03/generate-client-side-png-files-using-javascript/). The creative visual design is borrowed from [Jason Long](http://twitter.com/jasonlong) of Git and GitHub fame.
 
 Demo
 ----
