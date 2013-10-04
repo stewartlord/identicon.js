@@ -13,7 +13,7 @@ Usage
 -----
 ```js
 // base64 encoded PNG
-var data = new Identicon(hash, 420).toString();`
+var data = new Identicon(hash, 420).toString();
 
 // write to a data URI
 document.write('<img width=420 height=420 src="data:image/png;base64,' + data + '">');
