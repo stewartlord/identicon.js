@@ -1,0 +1,20 @@
+{
+  "name": "identicon.js",
+  "main": [
+    "pnglib.js",
+    "identicon.js"
+  ],
+  "version": "1.0.0",
+  "homepage": "https://github.com/stewartlord/identicon.js",
+  "authors": [
+    "stewardlord"
+  ],
+  "description": "GitHub-style identicons in JS with no server-side processing.",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "identicon"
+  ],
+  "license": "BSD"
+}

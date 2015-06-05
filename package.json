@@ -1,0 +1,22 @@
+{
+  "name": "identicon.js",
+  "version": "1.0.0",
+  "description": "GitHub-style identicons in JS with no server-side processing.",
+  "main": "identicon.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stewartlord/identicon.js"
+  },
+  "keywords": [
+    "identicon"
+  ],
+  "author": "stewardlord",
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/stewartlord/identicon.js/issues"
+  },
+  "homepage": "https://github.com/stewartlord/identicon.js",
+  "devDependencies": {
+    "gulp": "^3.9.0"
+  }
+}
