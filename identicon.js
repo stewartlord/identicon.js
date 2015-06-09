@@ -32,15 +32,16 @@
             // light-grey background
             var bg      = image.color(240, 240, 240);
 
-            // foreground is last 7 chars as hue at 50% saturation, 70% brightness
-            var rgb     = this.hsl2rgb(parseInt(hash.substr(-7), 16) / 0xfffffff, .5, .7),
+            // foreground is first 7 chars as hue at 50% saturation, 70% brightness which generates 456 unique colors
+            var rgb     = this.hsl2rgb(parseInt(hash.substr(0, 7), 16) / 0x10000000, .5, .7),
                 fg      = image.color(rgb[0] * 255, rgb[1] * 255, rgb[2] * 255);
 
-            // the first 15 characters of the hash control the pixels (even/odd)
+            // the last 4 characters of the hash (the 15 least significant bits) control the pixels
             // they are drawn down the middle first, then mirrored outwards
-            var i, color;
+            var i, color, bits = parseInt(hash.substr(-4), 16);
             for (i = 0; i < 15; i++) {
-                color = parseInt(hash.charAt(i), 16) % 2 ? bg : fg;
+                color = bits % 2 ? bg : fg;
+                bits >>= 1;
                 if (i < 5) {
                     this.rectangle(2 * cell + margin, i * cell + margin, cell, cell, color, image);
                 } else if (i < 10) {
