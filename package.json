@@ -1,8 +1,9 @@
 {
   "name": "identicon.js",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "GitHub-style identicons in JS with no server-side processing.",
-  "main": "identicon.js",
+  "main": "index.js",
+  "files": ["index.js"],
   "repository": {
     "type": "git",
     "url": "https://github.com/stewartlord/identicon.js"
@@ -16,7 +17,11 @@
     "url": "https://github.com/stewartlord/identicon.js/issues"
   },
   "homepage": "https://github.com/stewartlord/identicon.js",
+  "scripts": {
+    "build": "NODE_ENV=production webpack -c --progress --optimize-occurence-order --optimize-dedupe"
+  },
   "devDependencies": {
-    "gulp": "^3.9.0"
+    "gulp": "^3.9.0",
+    "webpack": "^1.12.0"
   }
 }
