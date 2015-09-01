@@ -1,25 +1,88 @@
 <html>
-<head>
+  <head>
     <script src="pnglib.js"></script>
     <script src="identicon.js"></script>
-</head>
-<body>
-<h1>Identicon.js</h1>
-<script type="text/javascript">
-    hashes = [
-        {id: 'stewartlord', hash: 'd6fe8c82fb0abac17a702fd2a94eff37'},
-        {id: 'jasonlong',   hash: '46384036044a604b6b3316fc167fc15f'},
-        {id: 'infusion',    hash: '373ff2375be91ebc97501e67d24ccd4d'}
-    ];
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  </head>
 
-    var i, data;
-    for (i = 0; i < hashes.length; i++) {
-        data = new Identicon(hashes[i].hash, 420).toString();
-        document.write(
-                hashes[i].id + '<br><img width=420 height=420 src="data:image/png;base64,' + data + '"><br><br>'
-        );
-    }
-</script>
+  <body>
+    <div class="container-fluid">
+      <h1>Identicon.js</h1>
+      <div class="row">
+        <div class="col-md-12">
+          <h4>Basic Usage</h4>
+          <p>Specify just a hash, use default background color, margins, and size.</p>
+<pre>
+  var hash = 'd6fe8c82fb0abac17a702fd2a94eff37';
+  var data = new Identicon(hash).toString();
+  document.write('&lt;img src="data:image/png;base64,' + data + '"&gt;');</pre>
+            <script type="text/javascript">
+              hashes = [
+                {id: 'stewartlord', hash: 'd6fe8c82fb0abac17a702fd2a94eff37'},
+                {id: 'jasonlong',   hash: '46384036044a604b6b3316fc167fc15f'},
+                {id: 'infusion',    hash: '373ff2375be91ebc97501e67d24ccd4d'},
+                {id: 'ppuleo',      hash: '001000101000000000000000099fff86'}
+              ];
 
-</body>
+              var i,
+              data;
+              for (i = 0; i < hashes.length; i++) {
+                data = new Identicon(hashes[i].hash).toString();
+                document.write(
+                  hashes[i].id + '<br><img src="data:image/png;base64,' + data + '"><br><br>'
+                  );
+              }
+            </script>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <h4>Options Usage</h4>
+          <p>Specify a hash and an options object to customize background color, margins, and size.</p>
+<pre>
+  var hash = 'd6fe8c82fb0abac17a702fd2a94eff37';
+  var options = {
+    background: [0, 0, 0, 255],
+    margin: 0.2,
+    size: 128
+  };
+  var data = new Identicon(hash, options).toString();
+  document.write('&lt;img src="data:image/png;base64,' + data + '"&gt;');</pre>
+          <script type="text/javascript">
+
+            var data,
+            hash = 'd6fe8c82fb0abac17a702fd2a94eff37',
+            options = {
+              background: [0, 0, 0, 255],
+              margin: 0.2,
+              size: 128
+            };
+
+            data = new Identicon(hash, options).toString();
+            document.write(
+              '<br><img src="data:image/png;base64,' + data + '"><br><br>'
+              );
+            </script>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <h4>Automatic Usage</h4>
+          <p>Don't specify a hash to have one automatically generated based on the current time.</p>
+<pre>
+  var data = new Identicon().toString();
+  document.write('&lt;img src="data:image/png;base64,' + data + '"&gt;');</pre>
+            <script type="text/javascript">
+
+              var data = new Identicon().toString();
+              document.write(
+                '<br><img src="data:image/png;base64,' + data + '"><br><br>'
+                );
+              </script>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
