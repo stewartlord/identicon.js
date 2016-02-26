@@ -11,29 +11,45 @@
  */
 
 (function() {
-    Identicon = function(hash, size, margin){
-        this.hash   = hash;
-        this.size   = size   || 64;
-        this.margin = margin || .08;
-    }
+    Identicon = function(hash, options){
+        this.defaults = {
+            background: [240, 240, 240, 255],
+            hash:       this.createHashFromString((new Date()).toISOString()),
+            margin:     0.08,
+            size:       64
+        };
+
+        this.options     = typeof(options) === 'object' ? options : this.defaults;
+
+        // backward compatibility with old constructor (hash, size, margin)
+        if (arguments[1] && typeof(arguments[1]) === 'number') { this.options.size   = arguments[1]; }
+        if (arguments[2])                                      { this.options.margin = arguments[2]; }
+
+        this.hash        = hash                    || this.defaults.hash;
+        this.background  = this.options.background || this.defaults.background;
+        this.margin      = this.options.margin     || this.defaults.margin;
+        this.size        = this.options.size       || this.defaults.size;
+    };
 
     Identicon.prototype = {
-        hash:   null,
-        size:   null,
-        margin: null,
+        background: null,
+        hash:       null,
+        margin:     null,
+        size:       null,
 
         render: function(){
             var hash    = this.hash,
                 size    = this.size,
-                margin  = Math.floor(size * this.margin),
-                cell    = Math.floor((size - (margin * 2)) / 5),
+                baseMargin  = Math.floor(size * this.margin),
+                cell    = Math.floor((size - (baseMargin * 2)) / 5),
+                margin  = Math.floor((size - cell * 5) / 2),
                 image   = new PNGlib(size, size, 256);
 
             // light-grey background
-            var bg      = image.color(240, 240, 240);
+            var bg      = image.color(this.background[0], this.background[1], this.background[2], this.background[3]);
 
             // foreground is last 7 chars as hue at 50% saturation, 70% brightness
-            var rgb     = this.hsl2rgb(parseInt(hash.substr(-7), 16) / 0xfffffff, .5, .7),
+            var rgb     = this.hsl2rgb(parseInt(hash.substr(-7), 16) / 0xfffffff, 0.5, 0.7),
                 fg      = image.color(rgb[0] * 255, rgb[1] * 255, rgb[2] * 255);
 
             // the first 15 characters of the hash control the pixels (even/odd)
@@ -85,8 +101,26 @@
 
         toString: function(){
             return this.render().getBase64();
+        },
+
+        // Creates a consistent-length hash from a string
+        createHashFromString: function(str) {
+          var hash = '0', salt = 'identicon', i, chr, len;
+
+          if (!str) {
+            return hash;
+          }
+
+          str += salt + str; // Better randomization for short inputs.
+
+          for (i = 0, len = str.length; i < len; i++) {
+            chr   = str.charCodeAt(i);
+            hash  = ((hash << 5) - hash) + chr;
+            hash |= 0; // Convert to 32bit integer
+          }
+          return hash.toString();
         }
-    }
+    };
 
     window.Identicon = Identicon;
 })();
