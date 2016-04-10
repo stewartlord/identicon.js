@@ -122,5 +122,9 @@
         }
     };
 
-    window.Identicon = Identicon;
+    if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+        module.exports = Identicon;
+    } else {
+        window.Identicon = Identicon;
+    }
 })();
