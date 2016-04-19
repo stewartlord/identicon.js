@@ -11,7 +11,14 @@
  */
 
 (function() {
-    Identicon = function(hash, options){
+    var PNGlib;
+    if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+        PNGlib = require('./pnglib');
+    } else {
+        PNGlib = window.PNGlib;
+    }
+
+    var Identicon = function(hash, options){
         this.defaults = {
             background: [240, 240, 240, 255],
             hash:       this.createHashFromString((new Date()).toISOString()),
