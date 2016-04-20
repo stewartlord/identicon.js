@@ -32,7 +32,8 @@
 		return String.fromCharCode(w & 255, (w >> 8) & 255);
 	}
 
-	window.PNGlib = function(width,height,depth) {
+	// modified from original source to support NPM
+	var PNGlib = function(width,height,depth) {
 
 		this.width   = width;
 		this.height  = height;
@@ -204,4 +205,10 @@
 		}
 	}
 
+	// modified from original source to support NPM
+	if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+		module.exports = PNGlib;
+	} else {
+		window.PNGlib = PNGlib;
+	}
 })();
