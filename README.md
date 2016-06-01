@@ -37,9 +37,9 @@ To customize additional properties, generate the Identicon by supplying a hash s
 // set up options
 var hash = "myUnicodeUsername!";          // Any unicode string
 var options = {
-      background = [255, 255, 255, 255];  // rgba white
-      margin = 0.2;                       // 20% margin
-      size = 420;                         // 420px square
+      background: [255, 255, 255, 255],  // rgba white
+      margin: 0.2,                       // 20% margin
+      size: 420                         // 420px square
     };
 
 // create a base64 encoded PNG
