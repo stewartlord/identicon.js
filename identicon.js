@@ -34,12 +34,14 @@
 
         this.hash        = hash                    || this.defaults.hash;
         this.background  = this.options.background || this.defaults.background;
+        this.foreground  = this.options.foreground;
         this.margin      = this.options.margin     || this.defaults.margin;
         this.size        = this.options.size       || this.defaults.size;
     };
 
     Identicon.prototype = {
         background: null,
+        foreground: null,
         hash:       null,
         margin:     null,
         size:       null,
@@ -53,11 +55,16 @@
                 image   = new PNGlib(size, size, 256);
 
             // light-grey background
-            var bg      = image.color(this.background[0], this.background[1], this.background[2], this.background[3]);
+            var bg      = image.color(this.background[0], this.background[1], this.background[2], this.background[3]),
+                fg;
 
-            // foreground is last 7 chars as hue at 50% saturation, 70% brightness
-            var rgb     = this.hsl2rgb(parseInt(hash.substr(-7), 16) / 0xfffffff, 0.5, 0.7),
-                fg      = image.color(rgb[0] * 255, rgb[1] * 255, rgb[2] * 255);
+            if (this.foreground) {
+              fg        = image.color(this.foreground[0], this.foreground[1], this.foreground[2]);
+            } else {
+              // foreground is last 7 chars as hue at 50% saturation, 70% brightness
+              var rgb   = this.hsl2rgb(parseInt(hash.substr(-7), 16) / 0xfffffff, 0.5, 0.7);
+              fg        = image.color(rgb[0] * 255, rgb[1] * 255, rgb[2] * 255);
+            }
 
             // the first 15 characters of the hash control the pixels (even/odd)
             // they are drawn down the middle first, then mirrored outwards
