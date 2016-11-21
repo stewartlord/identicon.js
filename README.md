@@ -11,7 +11,7 @@ Demo
 
 Options
 ----
-* **hash** - [Optional] A unicode string that will be used to generate the image. Defaults to a random hash based on the current time.
+* **hash** - [Optional] A hexadecimal string of 15+ characters that will be used to generate the image. Defaults to a random hash based on the current time.
 * **options** - [Optional] An options object used to customize the generated image.
     * **foreground** - The foreground color is automatically derived from the hash value. Use this option to override that behavior and provide a rgba value array instead (e.g. [255,0,0,255] for red).
     * **background** - The background color expressed as an rgba value array to use for the image background. For example, use [255,0,0,255] for red. Defaults to an opaque light gray [240,240,240,255].
@@ -26,22 +26,22 @@ Generate the Identicon by supplying a hash string and size.
 ```js
 
 // create a base64 encoded PNG
-var data = new Identicon('hash', 420).toString();
+var data = new Identicon('d3b07384d113edec49eaa6238ad5ff00', 420).toString();
 
 // write to a data URI
 document.write('<img width=420 height=420 src="data:image/png;base64,' + data + '">');
 ```
 
 ##### Advanced
-To customize additional properties, generate the Identicon by supplying a hash string and an options object.
+To customize additional properties, generate the Identicon by supplying a hexadecimal string and an options object.
 ```js
 // set up options
-var hash = "myUnicodeUsername!";         // Any unicode string
+var hash = "c157a79031e1c40f85931829bc5fc552";  // 15+ hex chars
 var options = {
-      foreground: [0, 0, 0, 255],        // rgba black
-      background: [255, 255, 255, 255],  // rgba white
-      margin: 0.2,                       // 20% margin
-      size: 420                          // 420px square
+      foreground: [0, 0, 0, 255],               // rgba black
+      background: [255, 255, 255, 255],         // rgba white
+      margin: 0.2,                              // 20% margin
+      size: 420                                 // 420px square
     };
 
 // create a base64 encoded PNG
