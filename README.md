@@ -38,11 +38,11 @@ To customize additional properties, generate the Identicon by supplying a hexade
 // set up options
 var hash = "c157a79031e1c40f85931829bc5fc552";  // 15+ hex chars
 var options = {
-      foreground: [0, 0, 0, 255],        // rgba black
-      background: [255, 255, 255, 255],  // rgba white
-      margin: 0.2,                       // 20% margin
-      size: 420                          // 420px square
-      format: 'svg'                      // use SVG instead of PNG
+      foreground: [0, 0, 0, 255],               // rgba black
+      background: [255, 255, 255, 255],         // rgba white
+      margin: 0.2,                              // 20% margin
+      size: 420                                 // 420px square
+      format: 'svg'                             // use SVG instead of PNG
     };
 
 // create a base64 encoded SVG
