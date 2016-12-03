@@ -18,6 +18,12 @@ Options
     * **margin** - The decimal fraction of the size to use for margin. For example, use 0.2 for a 20% margin. Defaults to 0.08 for an 8% margin.
     * **size** - The size in pixels of the height and width of the generated (square) image. Defaults to 64 pixels.
 
+Installation
+-----
+```
+npm install identicon.js --save
+```
+
 Usage
 -----
 
