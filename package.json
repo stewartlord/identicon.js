@@ -1,6 +1,6 @@
 {
   "name": "identicon.js",
-  "version": "2.0",
+  "version": "2.0.0",
   "description": "GitHub-style identicons in JS with no server-side processing.",
   "main": "identicon.js",
   "repository": {
