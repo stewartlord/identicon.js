@@ -9,6 +9,12 @@ Demo
 ----
 [View Demo](https://rawgithub.com/stewartlord/identicon.js/master/demo.html)
 
+Installation
+-----
+```
+npm install identicon.js --save
+```
+
 Options
 ----
 * **hash** - [Optional] A hexadecimal string of 15+ characters that will be used to generate the image. Defaults to a random hash based on the current time.
