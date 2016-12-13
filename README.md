@@ -1,7 +1,7 @@
 identicon.js
 ============
 
-GitHub-style identicons in JS with no server-side processing.
+GitHub-style identicons as PNGs or SVGs in JS.
 
 This little library will produce the same shape and (nearly) the same color as GitHub when given the same hash value. Supports PNG and SVG output formats. Note that GitHub uses an internal database identifier for the hash, so you can't simply md5 the username and get the same result. The creative visual design is borrowed from [Jason Long](http://twitter.com/jasonlong) of Git and GitHub fame.
 
