@@ -2,7 +2,7 @@
  * Identicon.js 2.0
  * http://github.com/stewartlord/identicon.js
  *
- * Requires PNGLib
+ * PNGLib required for PNG output
  * http://www.xarg.org/download/pnglib.js
  *
  * Copyright 2016, Stewart Lord
@@ -30,8 +30,8 @@
         this.options = typeof(options) === 'object' ? options : this.defaults;
 
         // backward compatibility with old constructor (hash, size, margin)
-        if (arguments[1] && typeof(arguments[1]) === 'number') { this.options.size   = arguments[1]; }
-        if (arguments[2])                                      { this.options.margin = arguments[2]; }
+        if (typeof(arguments[1]) === 'number') { this.options.size   = arguments[1]; }
+        if (arguments[2])                      { this.options.margin = arguments[2]; }
 
         this.hash        = hash                    || this.defaults.hash;
         this.background  = this.options.background || this.defaults.background;
@@ -112,8 +112,8 @@
             ];
 
             return[
-                s[ ~~h    % 6 ] * 255,  // red
-                s[ (h|16) % 6 ] * 255,  // green
+                s[ ~~h    % 6 ] * 255, // red
+                s[ (h|16) % 6 ] * 255, // green
                 s[ (h|8)  % 6 ] * 255  // blue
             ];
         },
@@ -160,24 +160,29 @@
 
         color: function(r, g, b, a){
             var values = [r, g, b, a ? a/255 : 1].map(Math.round);
-            return 'rgba(' + values.join(',') + ');';
+            return 'rgba(' + values.join(',') + ')';
         },
 
         getBase64: function(){
-            var i, xml, rect;
+            var i,
+                xml,
+                rect,
+                fg     = this.foreground,
+                bg     = this.background,
+                stroke = this.size * 0.005;
 
             xml = '<svg xmlns="http://www.w3.org/2000/svg"'
                 + ' width="' + this.size + '" height="' + this.size + '"'
-                + ' style="background-color: ' + this.background + '">'
-                + '<g style="fill: ' + this.foreground + '">';
+                + ' style="background-color:' + bg + ';">'
+                + '<g style="fill:' + fg + '; stroke:' + fg + '; stroke-width:' + stroke + ';">';
 
             for (i = 0; i < this.rectangles.length; i++) {
                 rect = this.rectangles[i];
-                if (rect.color == this.background) continue;
+                if (rect.color == bg) continue;
                 xml += '<rect '
-                    + ' x="' + rect.x + '"'
-                    + ' y="' + rect.y + '"'
-                    + ' width="' + rect.w + '"'
+                    + ' x="'      + rect.x + '"'
+                    + ' y="'      + rect.y + '"'
+                    + ' width="'  + rect.w + '"'
                     + ' height="' + rect.h + '"'
                     + '/>';
             }
