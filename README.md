@@ -3,7 +3,7 @@ identicon.js
 
 GitHub-style identicons in JS with no server-side processing.
 
-This little library will produce the same shape and (roughly) the same color as GitHub when given the same hash value. Note that GitHub uses an internal database identifier for the hash, so you can't simply md5 the username and get the same result. The hard work is done by [Robert Eisele's](http://twitter.com/roberteisele) [PNGlib](http://www.xarg.org/2010/03/generate-client-side-png-files-using-javascript/). The creative visual design is borrowed from [Jason Long](http://twitter.com/jasonlong) of Git and GitHub fame.
+This little library will produce the same shape and (nearly) the same color as GitHub when given the same hash value. Supports PNG and SVG output formats. Note that GitHub uses an internal database identifier for the hash, so you can't simply md5 the username and get the same result. The creative visual design is borrowed from [Jason Long](http://twitter.com/jasonlong) of Git and GitHub fame.
 
 Demo
 ----
@@ -48,17 +48,18 @@ var options = {
       background: [255, 255, 255, 255],         // rgba white
       margin: 0.2,                              // 20% margin
       size: 420                                 // 420px square
+      format: 'svg'                             // use SVG instead of PNG
     };
 
-// create a base64 encoded PNG
+// create a base64 encoded SVG
 var data = new Identicon(hash, options).toString();
 
 // write to a data URI
-document.write('<img width=420 height=420 src="data:image/png;base64,' + data + '">');
+document.write('<img width=420 height=420 src="data:image/svg+xml;base64,' + data + '">');
 ```
 
 
 [Requires PNGLib](http://www.xarg.org/download/pnglib.js)
 
-Copyright 2013, [Stewart Lord](http://twitter.com/stewartlord)
+Copyright 2016, [Stewart Lord](http://twitter.com/stewartlord)
 Released under the [BSD license](http://www.opensource.org/licenses/bsd-license.php)

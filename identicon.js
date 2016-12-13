@@ -1,11 +1,11 @@
 /**
- * Identicon.js v1.3.0
+ * Identicon.js 2.0
  * http://github.com/stewartlord/identicon.js
  *
- * Requires PNGLib
+ * PNGLib required for PNG output
  * http://www.xarg.org/download/pnglib.js
  *
- * Copyright 2013, Stewart Lord
+ * Copyright 2016, Stewart Lord
  * Released under the BSD license
  * http://www.opensource.org/licenses/bsd-license.php
  */
@@ -23,20 +23,25 @@
             background: [240, 240, 240, 255],
             hash:       this.createHashFromString((new Date()).toISOString()),
             margin:     0.08,
-            size:       64
+            size:       64,
+            format:     'png'
         };
 
-        this.options     = typeof(options) === 'object' ? options : this.defaults;
+        this.options = typeof(options) === 'object' ? options : this.defaults;
 
         // backward compatibility with old constructor (hash, size, margin)
-        if (arguments[1] && typeof(arguments[1]) === 'number') { this.options.size   = arguments[1]; }
-        if (arguments[2])                                      { this.options.margin = arguments[2]; }
+        if (typeof(arguments[1]) === 'number') { this.options.size   = arguments[1]; }
+        if (arguments[2])                      { this.options.margin = arguments[2]; }
 
         this.hash        = hash                    || this.defaults.hash;
         this.background  = this.options.background || this.defaults.background;
-        this.foreground  = this.options.foreground;
         this.margin      = this.options.margin     || this.defaults.margin;
         this.size        = this.options.size       || this.defaults.size;
+        this.format      = this.options.format     || this.defaults.format;
+
+        // foreground defaults to last 7 chars as hue at 50% saturation, 70% brightness
+        var hue          = parseInt(this.hash.substr(-7), 16) / 0xfffffff;
+        this.foreground  = this.options.foreground || this.hsl2rgb(hue, 0.5, 0.7);
     };
 
     Identicon.prototype = {
@@ -45,32 +50,28 @@
         hash:       null,
         margin:     null,
         size:       null,
+        format:     null,
+
+        image: function(){
+            return this.isSvg()
+                ? new Svg(this.size, this.foreground, this.background)
+                : new PNGlib(this.size, this.size, 256);
+        },
 
         render: function(){
-            var hash    = this.hash,
-                size    = this.size,
-                baseMargin  = Math.floor(size * this.margin),
-                cell    = Math.floor((size - (baseMargin * 2)) / 5),
-                margin  = Math.floor((size - cell * 5) / 2),
-                image   = new PNGlib(size, size, 256);
-
-            // light-grey background
-            var bg      = image.color(this.background[0], this.background[1], this.background[2], this.background[3]),
-                fg;
-
-            if (this.foreground) {
-              fg        = image.color(this.foreground[0], this.foreground[1], this.foreground[2]);
-            } else {
-              // foreground is last 7 chars as hue at 50% saturation, 70% brightness
-              var rgb   = this.hsl2rgb(parseInt(hash.substr(-7), 16) / 0xfffffff, 0.5, 0.7);
-              fg        = image.color(rgb[0] * 255, rgb[1] * 255, rgb[2] * 255);
-            }
+            var image      = this.image(),
+                size       = this.size,
+                baseMargin = Math.floor(size * this.margin),
+                cell       = Math.floor((size - (baseMargin * 2)) / 5),
+                margin     = Math.floor((size - cell * 5) / 2);
+                bg         = image.color.apply(image, this.background),
+                fg         = image.color.apply(image, this.foreground);
 
             // the first 15 characters of the hash control the pixels (even/odd)
             // they are drawn down the middle first, then mirrored outwards
             var i, color;
             for (i = 0; i < 15; i++) {
-                color = parseInt(hash.charAt(i), 16) % 2 ? bg : fg;
+                color = parseInt(this.hash.charAt(i), 16) % 2 ? bg : fg;
                 if (i < 5) {
                     this.rectangle(2 * cell + margin, i * cell + margin, cell, cell, color, image);
                 } else if (i < 10) {
@@ -85,11 +86,15 @@
             return image;
         },
 
-        rectangle: function(x, y, w, h, color, image) {
-            var i, j;
-            for (i = x; i < x + w; i++) {
-                for (j = y; j < y + h; j++) {
-                    image.buffer[image.index(i, j)] = color;
+        rectangle: function(x, y, w, h, color, image){
+            if (this.isSvg()) {
+                image.rectangles.push({x: x, y: y, w: w, h: h, color: color});
+            } else {
+                var i, j;
+                for (i = x; i < x + w; i++) {
+                    for (j = y; j < y + h; j++) {
+                        image.buffer[image.index(i, j)] = color;
+                    }
                 }
             }
         },
@@ -107,9 +112,9 @@
             ];
 
             return[
-                s[ ~~h    % 6 ],  // red
-                s[ (h|16) % 6 ],  // green
-                s[ (h|8)  % 6 ]   // blue
+                s[ ~~h    % 6 ] * 255, // red
+                s[ (h|16) % 6 ] * 255, // green
+                s[ (h|8)  % 6 ] * 255  // blue
             ];
         },
 
@@ -118,21 +123,73 @@
         },
 
         // Creates a consistent-length hash from a string
-        createHashFromString: function(str) {
-          var hash = '0', salt = 'identicon', i, chr, len;
+        createHashFromString: function(str){
+            var hash = '0', salt = 'identicon', i, chr, len;
 
-          if (!str) {
-            return hash;
-          }
+            if (!str) {
+                return hash;
+            }
 
-          str += salt + str; // Better randomization for short inputs.
+            str += salt + str; // Better randomization for short inputs.
 
-          for (i = 0, len = str.length; i < len; i++) {
-            chr   = str.charCodeAt(i);
-            hash  = ((hash << 5) - hash) + chr;
-            hash |= 0; // Convert to 32bit integer
-          }
-          return hash.toString();
+            for (i = 0, len = str.length; i < len; i++) {
+                chr   = str.charCodeAt(i);
+                hash  = ((hash << 5) - hash) + chr;
+                hash |= 0; // Convert to 32bit integer
+            }
+            return hash.toString();
+        },
+
+        isSvg: function(){
+            return this.format.match(/svg/i)
+        }
+    };
+
+    var Svg = function(size, foreground, background){
+        this.size       = size;
+        this.foreground = this.color.apply(this, foreground);
+        this.background = this.color.apply(this, background);
+        this.rectangles = [];
+    };
+
+    Svg.prototype = {
+        size:       null,
+        foreground: null,
+        background: null,
+        rectangles: null,
+
+        color: function(r, g, b, a){
+            var values = [r, g, b, a ? a/255 : 1].map(Math.round);
+            return 'rgba(' + values.join(',') + ')';
+        },
+
+        getBase64: function(){
+            var i,
+                xml,
+                rect,
+                fg     = this.foreground,
+                bg     = this.background,
+                stroke = this.size * 0.005;
+
+            xml = '<svg xmlns="http://www.w3.org/2000/svg"'
+                + ' width="' + this.size + '" height="' + this.size + '"'
+                + ' style="background-color:' + bg + ';">'
+                + '<g style="fill:' + fg + '; stroke:' + fg + '; stroke-width:' + stroke + ';">';
+
+            for (i = 0; i < this.rectangles.length; i++) {
+                rect = this.rectangles[i];
+                if (rect.color == bg) continue;
+                xml += '<rect '
+                    + ' x="'      + rect.x + '"'
+                    + ' y="'      + rect.y + '"'
+                    + ' width="'  + rect.w + '"'
+                    + ' height="' + rect.h + '"'
+                    + '/>';
+            }
+
+            xml += '</g></svg>';
+
+            return btoa(xml);
         }
     };
 
