@@ -59,7 +59,7 @@ document.write('<img width=420 height=420 src="data:image/svg+xml;base64,' + dat
 ```
 
 
-[Requires PNGLib](http://www.xarg.org/download/pnglib.js)
+[PNG output requires PNGLib](http://www.xarg.org/download/pnglib.js)
 
 Copyright 2016, [Stewart Lord](http://twitter.com/stewartlord)
 Released under the [BSD license](http://www.opensource.org/licenses/bsd-license.php)
