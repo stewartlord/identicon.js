@@ -9,6 +9,12 @@ Demo
 ----
 [View Demo](https://rawgithub.com/stewartlord/identicon.js/master/demo.html)
 
+Installation
+-----
+```
+npm install identicon.js --save
+```
+
 Options
 ----
 * **hash** - [Optional] A hexadecimal string of 15+ characters that will be used to generate the image. Defaults to a random hash based on the current time.
@@ -17,12 +23,6 @@ Options
     * **background** - The background color expressed as an rgba value array to use for the image background. For example, use [255,0,0,255] for red. Defaults to an opaque light gray [240,240,240,255].
     * **margin** - The decimal fraction of the size to use for margin. For example, use 0.2 for a 20% margin. Defaults to 0.08 for an 8% margin.
     * **size** - The size in pixels of the height and width of the generated (square) image. Defaults to 64 pixels.
-
-Installation
------
-```
-npm install identicon.js --save
-```
 
 Usage
 -----
