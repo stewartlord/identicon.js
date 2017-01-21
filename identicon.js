@@ -21,10 +21,10 @@
     var Identicon = function(hash, options){
         this.defaults = {
             background: [240, 240, 240, 255],
-            hash:       this.createHashFromString((new Date()).toISOString()),
             margin:     0.08,
             size:       64,
-            format:     'png'
+            format:     'png',
+            numCells:   5
         };
 
         this.options = typeof(options) === 'object' ? options : this.defaults;
@@ -33,11 +33,12 @@
         if (typeof(arguments[1]) === 'number') { this.options.size   = arguments[1]; }
         if (arguments[2])                      { this.options.margin = arguments[2]; }
 
-        this.hash        = hash                    || this.defaults.hash;
+        this.hash        = hash                    || this.defaultHash();
         this.background  = this.options.background || this.defaults.background;
         this.margin      = this.options.margin     || this.defaults.margin;
         this.size        = this.options.size       || this.defaults.size;
         this.format      = this.options.format     || this.defaults.format;
+        this.numCells    = this.options.numCells   || this.defaults.numCells;
 
         // foreground defaults to last 7 chars as hue at 50% saturation, 70% brightness
         var hue          = parseInt(this.hash.substr(-7), 16) / 0xfffffff;
@@ -51,6 +52,7 @@
         margin:     null,
         size:       null,
         format:     null,
+        numCells:   null,
 
         image: function(){
             return this.isSvg()
@@ -62,8 +64,9 @@
             var image      = this.image(),
                 size       = this.size,
                 baseMargin = Math.floor(size * this.margin),
-                cell       = Math.floor((size - (baseMargin * 2)) / 5),
-                margin     = Math.floor((size - cell * 5) / 2);
+                numCells   = this.numCells,
+                cell       = Math.floor((size - (baseMargin * 2)) / numCells),
+                margin     = Math.floor((size - cell * numCells) / 2);
                 bg         = image.color.apply(image, this.background),
                 fg         = image.color.apply(image, this.foreground);
 
@@ -72,11 +75,11 @@
             var i, color;
             for (i = 0; i < 15; i++) {
                 color = parseInt(this.hash.charAt(i), 16) % 2 ? bg : fg;
-                if (i < 5) {
+                if (i < numCells) {
                     this.rectangle(2 * cell + margin, i * cell + margin, cell, cell, color, image);
                 } else if (i < 10) {
-                    this.rectangle(1 * cell + margin, (i - 5) * cell + margin, cell, cell, color, image);
-                    this.rectangle(3 * cell + margin, (i - 5) * cell + margin, cell, cell, color, image);
+                    this.rectangle(1 * cell + margin, (i - numCells) * cell + margin, cell, cell, color, image);
+                    this.rectangle(3 * cell + margin, (i - numCells) * cell + margin, cell, cell, color, image);
                 } else if (i < 15) {
                     this.rectangle(0 * cell + margin, (i - 10) * cell + margin, cell, cell, color, image);
                     this.rectangle(4 * cell + margin, (i - 10) * cell + margin, cell, cell, color, image);
@@ -120,6 +123,10 @@
 
         toString: function(){
             return this.render().getBase64();
+        },
+
+        defaultHash: function(){
+            return this.createHashFromString((new Date()).toISOString());
         },
 
         // Creates a consistent-length hash from a string
