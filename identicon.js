@@ -39,6 +39,13 @@
         this.size        = this.options.size       || this.defaults.size;
         this.format      = this.options.format     || this.defaults.format;
         this.numCells    = this.options.numCells   || this.defaults.numCells;
+      
+        if( this.numCells < 0 ){
+          throw new Error('Number of cells must be positive.');
+        }
+        if( this.numCells % 2 != 1 ) {
+          throw new Error('Number of cells must be odd.');
+        }
 
         // foreground defaults to last 7 chars as hue at 50% saturation, 70% brightness
         var hue          = parseInt(this.hash.substr(-7), 16) / 0xfffffff;
@@ -70,21 +77,17 @@
                 bg         = image.color.apply(image, this.background),
                 fg         = image.color.apply(image, this.foreground);
 
-            // the first 15 characters of the hash control the pixels (even/odd)
-            // they are drawn down the middle first, then mirrored outwards
-            var i, color;
-            for (i = 0; i < 15; i++) {
-                color = parseInt(this.hash.charAt(i), 16) % 2 ? bg : fg;
-                if (i < numCells) {
-                    this.rectangle(2 * cell + margin, i * cell + margin, cell, cell, color, image);
-                } else if (i < 10) {
-                    this.rectangle(1 * cell + margin, (i - numCells) * cell + margin, cell, cell, color, image);
-                    this.rectangle(3 * cell + margin, (i - numCells) * cell + margin, cell, cell, color, image);
-                } else if (i < 15) {
-                    this.rectangle(0 * cell + margin, (i - 10) * cell + margin, cell, cell, color, image);
-                    this.rectangle(4 * cell + margin, (i - 10) * cell + margin, cell, cell, color, image);
-                }
-            }
+            var halfWidth = (numCells-1) / 2;
+            var i, j, hashIdx;
+            for( i = 0; i < numCells; ++i ){
+              for( j = 0; j <= halfWidth; ++j ){
+                // Different possible color for each column in image
+                hashIdx = (i * halfWidth + j) % this.hash.length;
+                color = parseInt(this.hash.charAt(hashIdx), 16) % 2 ? bg : fg;
+                this.rectangle(j * cell + margin, i * cell + margin, cell, cell, color, image);
+                this.rectangle((numCells - 1 - j) * cell + margin, i * cell + margin, cell, cell, color, image);
+              }
+            } 
 
             return image;
         },
