@@ -14,6 +14,7 @@ Installation
 ```
 npm install identicon.js --save
 ```
+[![NPM Stats](https://nodei.co/npm/identicon.js.png?downloads=true)](https://npmjs.org/package/identicon.js)
 
 Options
 ----
