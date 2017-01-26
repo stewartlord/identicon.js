@@ -77,11 +77,16 @@
     size: 128,
     format: 'svg'
   };
-  var data = new Identicon(hash, options).toString();
-  document.write('&lt;img src="data:image/svg+xml;base64,' + data + '"&gt;');</pre>
+  var data1 = new Identicon(hash, options).toString();
+  var data2 = new Identicon(hash, options).toString('svg');
+  document.write(
+      '&lt;img src="data:image/svg+xml;base64,' + data1 + '"&gt;' +
+      "&lt;img src='data:image/svg+xml;utf8," + data2 + "'&gt;";
+  );
+</pre>
           <script type="text/javascript">
 
-            var data,
+            var data1, data2,
             hash = 'd6fe8c82fb0abac17a702fd2a94eff37',
             options = {
               foreground: [255, 255, 255, 255],
@@ -91,9 +96,11 @@
               format: 'svg'
             };
 
-            data = new Identicon(hash, options).toString();
+            data1 = new Identicon(hash, options).toString();
+            data2 = new Identicon(hash, options).toString('svg');
             document.write(
-              '<br><img src="data:image/svg+xml;base64,' + data + '"><br><br>'
+              '<br>svg+xml;base64 (1280 bytes)<br><img src="data:image/svg+xml;base64,' + data1 + '"><br><br>' +
+              "<br>svg+xml;utf8 (963 bytes)<br><img src='data:image/svg+xml;utf8," + data2 + "'><br><br>"
             );
             </script>
         </div>
