@@ -118,10 +118,10 @@
             ];
         },
 
-        toString: function(type){
+        toString: function(raw){
             // backward compatibility with old toString, default to base64
-            if (type === 'svg') {
-                return this.render().getSvgElement();
+            if (raw) {
+                return this.render().getDump();
             } else {
                 return this.render().getBase64();
             }
@@ -168,7 +168,7 @@
             return 'rgba(' + values.join(',') + ')';
         },
 
-        getSvgElement: function(){
+        getDump: function(){
           var i,
                 xml,
                 rect,
@@ -176,28 +176,28 @@
                 bg     = this.background,
                 stroke = this.size * 0.005;
 
-            xml = '<svg xmlns="http://www.w3.org/2000/svg"'
-                + ' width="' + this.size + '" height="' + this.size + '"'
-                + ' style="background-color:' + bg + ';">'
-                + '<g style="fill:' + fg + '; stroke:' + fg + '; stroke-width:' + stroke + ';">';
+            xml = "<svg xmlns='http://www.w3.org/2000/svg'"
+                + " width='" + this.size + "' height='" + this.size + "'"
+                + " style='background-color:" + bg + ";'>"
+                + "<g style='fill:" + fg + "; stroke:" + fg + "; stroke-width:" + stroke + ";'>";
 
             for (i = 0; i < this.rectangles.length; i++) {
                 rect = this.rectangles[i];
                 if (rect.color == bg) continue;
-                xml += '<rect '
-                    + ' x="'      + rect.x + '"'
-                    + ' y="'      + rect.y + '"'
-                    + ' width="'  + rect.w + '"'
-                    + ' height="' + rect.h + '"'
-                    + '/>';
+                xml += "<rect "
+                    + " x='"      + rect.x + "'"
+                    + " y='"      + rect.y + "'"
+                    + " width='"  + rect.w + "'"
+                    + " height='" + rect.h + "'"
+                    + "/>";
             }
-            xml += '</g></svg>'
+            xml += "</g></svg>"
 
             return xml;
         },
 
         getBase64: function(){
-            return btoa(this.getSvgElement());
+            return btoa(this.getDump());
         }
     };
 

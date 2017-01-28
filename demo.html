@@ -78,10 +78,10 @@
     format: 'svg'
   };
   var data1 = new Identicon(hash, options).toString();
-  var data2 = new Identicon(hash, options).toString('svg');
+  var data2 = new Identicon(hash, options).toString(true);
   document.write(
-      '&lt;img src="data:image/svg+xml;base64,' + data1 + '"&gt;' +
-      "&lt;img src='data:image/svg+xml;utf8," + data2 + "'&gt;";
+    '&lt;img src="data:image/svg+xml;base64,' + data1 + '"&gt;' +
+    '&lt;img src="data:image/svg+xml;utf8,' + data2 + '"&gt;';
   );
 </pre>
           <script type="text/javascript">
@@ -95,12 +95,13 @@
               size: 128,
               format: 'svg'
             };
-
+            // Default base64
             data1 = new Identicon(hash, options).toString();
-            data2 = new Identicon(hash, options).toString('svg');
+            // Raw argument set to true outputs raw xml
+            data2 = new Identicon(hash, options).toString(true);
             document.write(
               '<br>svg+xml;base64 (1280 bytes)<br><img src="data:image/svg+xml;base64,' + data1 + '"><br><br>' +
-              "<br>svg+xml;utf8 (963 bytes)<br><img src='data:image/svg+xml;utf8," + data2 + "'><br><br>"
+              '<br>svg+xml;utf8 (963 bytes)<br><img src="data:image/svg+xml;utf8,' + data2 + '"><br><br>'
             );
             </script>
         </div>
