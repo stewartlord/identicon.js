@@ -89,10 +89,9 @@
               size: 128,
               format: 'svg'
             };
-            // Default output is Base64 encoded
             data = new Identicon(hash, options).toString();
             document.write(
-              '<br>svg+xml;base64 (1280 bytes)<br><img src="data:image/svg+xml;base64,' + data + '"><br><br>'
+              '<br><img src="data:image/svg+xml;base64,' + data + '"><br><br>'
             );
             </script>
         </div>
@@ -100,8 +99,8 @@
 
       <div class="row">
         <div class="col-md-12">
-          <h4>Raw</h4>
-          <p>Identicon toString method accepts a boolean argument that when set to true returns raw image data which is slightly smaller. In the case of SVG this is still safe to use in a data URI provided that element attribute is double quoted.</p>
+          <h4>Raw (Smaller)</h4>
+          <p>The toString() method accepts an optional boolean argument that when set to true will return unencoded image data which is slightly smaller than the default base64 output. In the case of SVG this is still safe to use in a data URI provided that the attribute is double-quoted.</p>
 <pre>
   var data = new Identicon(hash, options).toString(true);
   document.write('&lt;img src="data:image/svg+xml;utf8,' + data + '"&gt;');</pre>
