@@ -78,10 +78,7 @@
     format: 'svg'
   };
   var data = new Identicon(hash, options).toString();
-  document.write(
-    '&lt;img src="data:image/svg+xml;base64,' + data + '"&gt;'
-  );
-</pre>
+  document.write('&lt;img src="data:image/svg+xml;base64,' + data + '"&gt;');</pre>
           <script type="text/javascript">
             var data;
             hash = 'd6fe8c82fb0abac17a702fd2a94eff37',
@@ -92,7 +89,7 @@
               size: 128,
               format: 'svg'
             };
-            // Default base64
+            // Default output is Base64 encoded
             data = new Identicon(hash, options).toString();
             document.write(
               '<br>svg+xml;base64 (1280 bytes)<br><img src="data:image/svg+xml;base64,' + data + '"><br><br>'
@@ -104,13 +101,10 @@
       <div class="row">
         <div class="col-md-12">
           <h4>Raw</h4>
-          <p>Identicon toString method accepts a raw argument that when set to true returns a XML-based SVG element.</p>
+          <p>Identicon toString method accepts a boolean argument that when set to true returns raw image data which is slightly smaller. In the case of SVG this is still safe to use in a data URI provided that element attribute is double quoted.</p>
 <pre>
   var data = new Identicon(hash, options).toString(true);
-  document.write(
-    '&lt;img src="data:image/svg+xml;utf8,' + data + '"&gt;';
-  );
-</pre>
+  document.write('&lt;img src="data:image/svg+xml;utf8,' + data + '"&gt;');</pre>
           <script type="text/javascript">
             var data;
             hash = 'd6fe8c82fb0abac17a702fd2a94eff37',
@@ -123,9 +117,7 @@
             };
             // Raw argument set to true outputs raw xml
             data = new Identicon(hash, options).toString(true);
-            document.write(
-              '<br>svg+xml;utf8 (963 bytes)<br><img src="data:image/svg+xml;utf8,' + data + '"><br><br>'
-            );
+            document.write('<br><img src="data:image/svg+xml;utf8,' + data + '"><br><br>');
             </script>
         </div>
       </div>
