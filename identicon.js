@@ -164,8 +164,8 @@
         rectangles: null,
 
         color: function(r, g, b, a){
-            var values = [r, g, b, a ? a/255 : 1].map(Math.round);
-            return 'rgba(' + values.join(',') + ')';
+            var values = [r, g, b].map(Math.round);
+            return 'rgba(' + values.join(',') + ',' + (((a >= 0) && (a <= 255)) ? a/255 : 1) + ')';
         },
 
         getDump: function(){
