@@ -165,7 +165,8 @@
 
         color: function(r, g, b, a){
             var values = [r, g, b].map(Math.round);
-            return 'rgba(' + values.join(',') + ',' + (((a >= 0) && (a <= 255)) ? a/255 : 1) + ')';
+            values.push((a >= 0) && (a <= 255) ? a/255 : 1)
+            return 'rgba(' + values.join(',') + ')';
         },
 
         getDump: function(){
