@@ -4,7 +4,7 @@
     "pnglib.js",
     "identicon.js"
   ],
-  "version": "2.1.0",
+  "version": "2.1.1",
   "homepage": "https://github.com/stewartlord/identicon.js",
   "authors": [
     "stewartlord"
