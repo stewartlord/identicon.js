@@ -1,5 +1,5 @@
 /**
- * Identicon.js 2.2.0
+ * Identicon.js 2.2.1
  * http://github.com/stewartlord/identicon.js
  *
  * PNGLib required for PNG output
