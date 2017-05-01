@@ -19,9 +19,12 @@
     }
 
     var Identicon = function(hash, options){
+        if (typeof(hash) !== 'string' || hash.length < 15) {
+            throw 'A hash of at least 15 characters is required.';
+        }
+
         this.defaults = {
             background: [240, 240, 240, 255],
-            hash:       this.createHashFromString((new Date()).toISOString()),
             margin:     0.08,
             size:       64,
             format:     'png'
@@ -33,7 +36,7 @@
         if (typeof(arguments[1]) === 'number') { this.options.size   = arguments[1]; }
         if (arguments[2])                      { this.options.margin = arguments[2]; }
 
-        this.hash        = hash                    || this.defaults.hash;
+        this.hash        = hash
         this.background  = this.options.background || this.defaults.background;
         this.margin      = this.options.margin     || this.defaults.margin;
         this.size        = this.options.size       || this.defaults.size;
@@ -126,24 +129,6 @@
             } else {
                 return this.render().getBase64();
             }
-        },
-
-        // Creates a consistent-length hash from a string
-        createHashFromString: function(str){
-            var hash = '0', salt = 'identicon', i, chr, len;
-
-            if (!str) {
-                return hash;
-            }
-
-            str += salt + str; // Better randomization for short inputs.
-
-            for (i = 0, len = str.length; i < len; i++) {
-                chr   = str.charCodeAt(i);
-                hash  = ((hash << 5) - hash) + chr;
-                hash |= 0; // Convert to 32bit integer
-            }
-            return hash.toString();
         },
 
         isSvg: function(){
