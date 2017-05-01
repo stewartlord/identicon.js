@@ -1,6 +1,6 @@
 {
   "name": "identicon.js",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "GitHub-style identicons as PNGs or SVGs in JS.",
   "main": "identicon.js",
   "repository": {
@@ -15,8 +15,5 @@
   "bugs": {
     "url": "https://github.com/stewartlord/identicon.js/issues"
   },
-  "homepage": "https://github.com/stewartlord/identicon.js",
-  "devDependencies": {
-    "gulp": "^3.9.0"
-  }
+  "homepage": "https://github.com/stewartlord/identicon.js"
 }

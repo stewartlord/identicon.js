@@ -20,7 +20,7 @@ npm install identicon.js --save
 
 Options
 ----
-* **hash** - [Optional] A hexadecimal string of 15+ characters that will be used to generate the image. Defaults to a random hash based on the current time.
+* **hash** - A hexadecimal string of 15+ characters that will be used to generate the image.
 * **options** - [Optional] An options object used to customize the generated image.
     * **foreground** - The foreground color is automatically derived from the hash value. Use this option to override that behavior and provide a rgba value array instead (e.g. [255,0,0,255] for red).
     * **background** - The background color expressed as an rgba value array to use for the image background. For example, use [255,0,0,255] for red. Defaults to an opaque light gray [240,240,240,255].
