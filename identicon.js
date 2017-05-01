@@ -38,6 +38,7 @@
         this.margin      = this.options.margin     || this.defaults.margin;
         this.size        = this.options.size       || this.defaults.size;
         this.format      = this.options.format     || this.defaults.format;
+        this.margin      = this.options.margin != undefined ? this.options.margin : this.defaults.margin;
 
         // foreground defaults to last 7 chars as hue at 50% saturation, 70% brightness
         var hue          = parseInt(this.hash.substr(-7), 16) / 0xfffffff;
