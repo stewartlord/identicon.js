@@ -1,6 +1,8 @@
 identicon.js
 ============
 
+![Screenshot](/screenshot.png)
+
 [![CDNJS version](https://img.shields.io/cdnjs/v/identicon.js.svg)](https://cdnjs.com/libraries/identicon.js)
 
 GitHub-style identicons as PNGs or SVGs in JS.
