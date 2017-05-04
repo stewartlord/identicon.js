@@ -27,6 +27,8 @@
             background: [240, 240, 240, 255],
             margin:     0.08,
             size:       64,
+            saturation: 0.7,
+            brightness: 0.5,
             format:     'png'
         };
 
@@ -44,7 +46,9 @@
 
         // foreground defaults to last 7 chars as hue at 50% saturation, 70% brightness
         var hue          = parseInt(this.hash.substr(-7), 16) / 0xfffffff;
-        this.foreground  = this.options.foreground || this.hsl2rgb(hue, 0.5, 0.7);
+        var saturation  = this.options.saturation || this.defaults.saturation;
+        var brightness  = this.options.brightness || this.defaults.brightness;
+        this.foreground  = this.options.foreground || this.hsl2rgb(hue, saturation, brightness);
     };
 
     Identicon.prototype = {
