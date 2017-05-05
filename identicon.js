@@ -47,8 +47,8 @@
 
         // foreground defaults to last 7 chars as hue at 50% saturation, 70% brightness
         var hue          = parseInt(this.hash.substr(-7), 16) / 0xfffffff;
-        var saturation  = this.options.saturation || this.defaults.saturation;
-        var brightness  = this.options.brightness || this.defaults.brightness;
+        var saturation   = this.options.saturation || this.defaults.saturation;
+        var brightness   = this.options.brightness || this.defaults.brightness;
         this.foreground  = this.options.foreground || this.hsl2rgb(hue, saturation, brightness);
     };
 
