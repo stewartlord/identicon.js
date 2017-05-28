@@ -201,7 +201,7 @@
 			crc32(this.buffer, this.iend_offs, this.iend_size);
 
 			// convert PNG to string
-			return "\211PNG\r\n\032\n"+this.buffer.join('');
+			return String.fromCharCode(137) + "PNG\r\n" + String.fromCharCode(26) + "\n"+this.buffer.join('');
 		}
 	}
 
