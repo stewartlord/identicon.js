@@ -24,10 +24,13 @@ Options
 ----
 * **hash** - A hexadecimal string of 15+ characters that will be used to generate the image.
 * **options** - [Optional] An options object used to customize the generated image.
+    * **size** - The size in pixels of the height and width of the generated (square) image. Defaults to 64 pixels.
+    * **margin** - The decimal fraction of the size to use for margin. For example, use 0.2 for a 20% margin. Defaults to 0.08 for an 8% margin.
     * **foreground** - The foreground color is automatically derived from the hash value. Use this option to override that behavior and provide a rgba value array instead (e.g. [255,0,0,255] for red).
     * **background** - The background color expressed as an rgba value array to use for the image background. For example, use [255,0,0,255] for red. Defaults to an opaque light gray [240,240,240,255].
-    * **margin** - The decimal fraction of the size to use for margin. For example, use 0.2 for a 20% margin. Defaults to 0.08 for an 8% margin.
-    * **size** - The size in pixels of the height and width of the generated (square) image. Defaults to 64 pixels.
+    * **saturation** - The saturation of the derived foreground color as a value from 0-1. Defaults to 0.7.
+    * **brightness** - The brightness of the derived foreground color as a value from 0-1. Defaults to 0.5.
+
 
 Usage
 -----
