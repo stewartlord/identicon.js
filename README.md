@@ -55,7 +55,7 @@ var options = {
       foreground: [0, 0, 0, 255],               // rgba black
       background: [255, 255, 255, 255],         // rgba white
       margin: 0.2,                              // 20% margin
-      size: 420                                 // 420px square
+      size: 420,                                // 420px square
       format: 'svg'                             // use SVG instead of PNG
     };
 
