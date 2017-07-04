@@ -70,7 +70,7 @@
                 size       = this.size,
                 baseMargin = Math.floor(size * this.margin),
                 cell       = Math.floor((size - (baseMargin * 2)) / 5),
-                margin     = Math.floor((size - cell * 5) / 2);
+                margin     = Math.floor((size - cell * 5) / 2),
                 bg         = image.color.apply(image, this.background),
                 fg         = image.color.apply(image, this.foreground);
 
