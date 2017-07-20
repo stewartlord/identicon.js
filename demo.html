@@ -2,6 +2,7 @@
   <head>
     <script src="pnglib.js"></script>
     <script src="identicon.js"></script>
+    <script src="sha512.bin.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
   </head>
 
@@ -88,6 +89,63 @@
               margin: 0.2,
               size: 128,
               format: 'svg'
+            };
+            data = new Identicon(hash, options).toString();
+            document.write(
+              '<br><img src="data:image/svg+xml;base64,' + data + '"><br><br>'
+            );
+            </script>
+        </div>
+        <div class="col-md-12">
+          <p>If you include the file sha512.bin.js, a hash is automaticaly generated with any input string. You can set the flag generateHash to false if you want to desactivate this option.</p>
+<pre>
+  var hash = 'DeBugs';
+  var options = {
+    foreground: [255, 255, 255, 255],
+    background: [0, 0, 0, 255],
+    margin: 0.2,
+    size: 128,
+    format: 'svg'
+  };
+  var data = new Identicon(hash, options).toString();
+  document.write('&lt;img src="data:image/svg+xml;base64,' + data + '"&gt;');</pre>
+          <script type="text/javascript">
+            var data;
+            hash = 'DeBugs',
+            options = {
+              foreground: [255, 255, 255, 255],
+              background: [0, 0, 0, 255],
+              margin: 0.2,
+              size: 128,
+              format: 'svg'
+            };
+            data = new Identicon(hash, options).toString();
+            document.write(
+              '<br><img src="data:image/svg+xml;base64,' + data + '"><br><br>'
+            );
+            </script>
+<pre>
+  var hash = 'd6fe8c82fb0abac17a702fd2a94eff37';
+  var options = {
+    foreground: [255, 255, 255, 255],
+    background: [0, 0, 0, 255],
+    margin: 0.2,
+    size: 128,
+    format: 'svg',
+    generateHash: false
+  };
+  var data = new Identicon(hash, options).toString();
+  document.write('&lt;img src="data:image/svg+xml;base64,' + data + '"&gt;');</pre>
+          <script type="text/javascript">
+            var data;
+            hash = 'd6fe8c82fb0abac17a702fd2a94eff37',
+            options = {
+              foreground: [255, 255, 255, 255],
+              background: [0, 0, 0, 255],
+              margin: 0.2,
+              size: 128,
+              format: 'svg',
+              generateHash: false
             };
             data = new Identicon(hash, options).toString();
             document.write(

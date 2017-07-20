@@ -19,17 +19,22 @@
     }
 
     var Identicon = function(hash, options){
-        if (typeof(hash) !== 'string' || hash.length < 15) {
-            throw 'A hash of at least 15 characters is required.';
-        }
+
+      var sha;
+      if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+          sha    = require('./sha512')
+      } else {
+          sha    = window.sha
+      }
 
         this.defaults = {
-            background: [240, 240, 240, 255],
-            margin:     0.08,
-            size:       64,
-            saturation: 0.7,
-            brightness: 0.5,
-            format:     'png'
+            background:   [240, 240, 240, 255],
+            margin:       0.08,
+            size:         64,
+            saturation:   0.7,
+            brightness:   0.5,
+            format:       'png',
+            generateHash: sha ? true : false,
         };
 
         this.options = typeof(options) === 'object' ? options : this.defaults;
@@ -38,26 +43,39 @@
         if (typeof(arguments[1]) === 'number') { this.options.size   = arguments[1]; }
         if (arguments[2])                      { this.options.margin = arguments[2]; }
 
-        this.hash        = hash
-        this.background  = this.options.background || this.defaults.background;
-        this.size        = this.options.size       || this.defaults.size;
-        this.format      = this.options.format     || this.defaults.format;
-        this.margin      = this.options.margin !== undefined ? this.options.margin : this.defaults.margin;
+        this.background   = this.options.background   || this.defaults.background;
+        this.size         = this.options.size         || this.defaults.size;
+        this.format       = this.options.format       || this.defaults.format;
+        this.margin       = this.options.margin !== undefined ? this.options.margin : this.defaults.margin;
+        this.generateHash = this.options.generateHash !== undefined ? this.options.generateHash : this.defaults.generateHash;
+        if (this.generateHash && !sha){
+          console.log("You need to add sha512.bin.js in your html file to automaticaly hash your input.");
+          console.log("exemple :");
+          console.log("<script src=\"sha512.bin.js\"></script>");
+          console.log("hashing is disabled for now.");
+          this.generateHash = false
+        }
+        this.hash         = this.generateHash ? sha.genHash(hash) : hash;
 
         // foreground defaults to last 7 chars as hue at 70% saturation, 50% brightness
         var hue          = parseInt(this.hash.substr(-7), 16) / 0xfffffff;
         var saturation   = this.options.saturation || this.defaults.saturation;
         var brightness   = this.options.brightness || this.defaults.brightness;
         this.foreground  = this.options.foreground || this.hsl2rgb(hue, saturation, brightness);
+
+        if (typeof(this.hash) !== 'string' || this.hash.length < 15) {
+            throw 'A hash of at least 15 characters is required.';
+        }
     };
 
     Identicon.prototype = {
-        background: null,
-        foreground: null,
-        hash:       null,
-        margin:     null,
-        size:       null,
-        format:     null,
+        background:   null,
+        foreground:   null,
+        hash:         null,
+        margin:       null,
+        size:         null,
+        format:       null,
+        generateHash: null,
 
         image: function(){
             return this.isSvg()
