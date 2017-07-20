@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/stewartlord/identicon.js/issues"
   },
-  "homepage": "https://github.com/stewartlord/identicon.js"
+  "homepage": "https://github.com/stewartlord/identicon.js",
+  "dependencies": {
+    "jssha": "^2.3.1"
+  }
 }
