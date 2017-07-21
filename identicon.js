@@ -187,6 +187,9 @@
         },
 
         getBase64: function(){
+            if (!btoa) {
+                let btoa = (str) => new Buffer(str.toString(), 'binary').toString('base64');
+            }
             return btoa(this.getDump());
         }
     };
