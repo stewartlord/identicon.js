@@ -187,10 +187,13 @@
         },
 
         getBase64: function(){
-            if (!btoa) {
-                let btoa = (str) => new Buffer(str.toString(), 'binary').toString('base64');
+            if (btoa) {
+                return btoa(this.getDump());
+            } else if (Buffer) {
+                return new Buffer(this.getDump(), 'binary').toString('base64');
+            } else {
+                throw 'Cannot generate base64 output';
             }
-            return btoa(this.getDump());
         }
     };
 
