@@ -69,5 +69,5 @@ document.write('<img width=420 height=420 src="data:image/svg+xml;base64,' + dat
 
 [PNG output requires PNGLib](http://www.xarg.org/download/pnglib.js)
 
-Copyright 2017, [Stewart Lord](http://twitter.com/stewartlord)
+Copyright 2018, [Stewart Lord](https://github.com/stewartlord)
 Released under the [BSD license](http://www.opensource.org/licenses/bsd-license.php)

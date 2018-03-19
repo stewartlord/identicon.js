@@ -1,11 +1,11 @@
 /**
- * Identicon.js 2.3.1
+ * Identicon.js 2.3.2
  * http://github.com/stewartlord/identicon.js
  *
  * PNGLib required for PNG output
  * http://www.xarg.org/download/pnglib.js
  *
- * Copyright 2017, Stewart Lord
+ * Copyright 2018, Stewart Lord
  * Released under the BSD license
  * http://www.opensource.org/licenses/bsd-license.php
  */

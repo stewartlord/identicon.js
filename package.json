@@ -1,6 +1,6 @@
 {
   "name": "identicon.js",
-  "version": "2.3.1",
+  "version": "2.3.2",
   "description": "GitHub-style identicons as PNGs or SVGs in JS.",
   "main": "identicon.js",
   "repository": {
