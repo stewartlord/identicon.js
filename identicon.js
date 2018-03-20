@@ -187,7 +187,7 @@
         },
 
         getBase64: function(){
-            if (typeof btoa !== 'undefined') {
+            if ('function' === typeof btoa) {
                 return btoa(this.getDump());
             } else if (Buffer) {
                 return new Buffer(this.getDump(), 'binary').toString('base64');
