@@ -37,6 +37,8 @@ Usage
 
 ##### Simple
 Generate the Identicon by supplying a hash string and size.
+Note: SVGs will produce clearer images (see below). To make PNGs crisper, you can try adding the CSS rule `image-rendering: pixelated;`
+
 ```js
 
 // create a base64 encoded PNG
